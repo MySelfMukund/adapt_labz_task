@@ -8,6 +8,7 @@ abstract class Routes {
   static const HOME_PAGE = _Paths.HOME_PAGE;
   static const MY_ALBUM = _Paths.MY_ALBUM;
   static const MY_POSTS = _Paths.MY_POSTS;
+  static const HOME_NAVIGATION = _Paths.HOME_NAVIGATION;
 }
 
 abstract class _Paths {
@@ -15,4 +16,5 @@ abstract class _Paths {
   static const HOME_PAGE = '/home-page';
   static const MY_ALBUM = '/my-album';
   static const MY_POSTS = '/my-posts';
+  static const HOME_NAVIGATION = '/home-navigation';
 }

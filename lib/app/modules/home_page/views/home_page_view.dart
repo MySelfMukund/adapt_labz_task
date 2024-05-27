@@ -4,11 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../data/constants/image_constants.dart';
-import '../controllers/home_page_controller.dart';
+import 'package:problem_statement/app/modules/home_page/controllers/home_page_controller.dart';
 
-class HomePageView extends GetView<HomePageController> {
-  const HomePageView({super.key});
+import '../../../data/constants/image_constants.dart';
+
+class HomePageView extends StatelessWidget {
+  //GetView<HomePageController> {
+  final controller = Get.isRegistered<HomePageController>()
+      ? Get.find<HomePageController>()
+      : Get.put(HomePageController());
+  HomePageView({super.key});
 
   @override
   Widget build(BuildContext context) {
