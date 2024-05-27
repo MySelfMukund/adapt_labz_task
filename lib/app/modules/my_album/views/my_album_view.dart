@@ -17,36 +17,42 @@ class MyAlbumView extends StatelessWidget {
   final controller = Get.isRegistered<MyAlbumController>() ? Get.find<MyAlbumController>() : Get.put(MyAlbumController());
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        title: controller.photosList.isNotEmpty ? 'Photos Grid' : 'Album Grid',
-      ),
-      body: Container(
-        width: double.maxFinite,
-        height: double.maxFinite,
-        padding: const EdgeInsets.all(16.0),
-        child: Obx(
-          () => LoadingOverlayPro(
-            isLoading: controller.isLoading.value,
-            child: controller.photosList.value.isNotEmpty
-                ? GridView.extent(
-                    maxCrossAxisExtent: 200.0, // maximum item width
-                    mainAxisSpacing: 8.0, // spacing between rows
-                    crossAxisSpacing: 8.0, // spacing between columns
-                    padding: const EdgeInsets.all(8.0), // padding around the grid
-                    children: controller.photosList.value.map((item) {
-                      return _buildPhotoGridViewListItemWidget(item);
-                    }).toList(),
-                  )
-                : GridView.extent(
-                    maxCrossAxisExtent: 200.0, // maximum item width
-                    mainAxisSpacing: 8.0, // spacing between rows
-                    crossAxisSpacing: 8.0, // spacing between columns
-                    padding: const EdgeInsets.all(8.0), // padding around the grid
-                    children: controller.albumList.value.map((item) {
-                      return _buildAlbumGridViewListItemWidget(item);
-                    }).toList(),
-                  ),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        controller.photosList.clear();
+      },
+      child: Scaffold(
+        appBar: CustomAppBar(
+          title: controller.photosList.isNotEmpty ? 'Photos Grid' : 'Album Grid',
+        ),
+        body: Container(
+          width: double.maxFinite,
+          height: double.maxFinite,
+          padding: const EdgeInsets.all(16.0),
+          child: Obx(
+            () => LoadingOverlayPro(
+              isLoading: controller.isLoading.value,
+              child: controller.photosList.value.isNotEmpty
+                  ? GridView.extent(
+                      maxCrossAxisExtent: 200.0, // maximum item width
+                      mainAxisSpacing: 8.0, // spacing between rows
+                      crossAxisSpacing: 8.0, // spacing between columns
+                      padding: const EdgeInsets.all(8.0), // padding around the grid
+                      children: controller.photosList.value.map((item) {
+                        return _buildPhotoGridViewListItemWidget(item);
+                      }).toList(),
+                    )
+                  : GridView.extent(
+                      maxCrossAxisExtent: 200.0, // maximum item width
+                      mainAxisSpacing: 8.0, // spacing between rows
+                      crossAxisSpacing: 8.0, // spacing between columns
+                      padding: const EdgeInsets.all(8.0), // padding around the grid
+                      children: controller.albumList.value.map((item) {
+                        return _buildAlbumGridViewListItemWidget(item);
+                      }).toList(),
+                    ),
+            ),
           ),
         ),
       ),
