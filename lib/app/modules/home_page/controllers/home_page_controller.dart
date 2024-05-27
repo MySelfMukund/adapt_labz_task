@@ -11,14 +11,9 @@ import '../models/profile_model.dart';
 import '../providers/home_page_provider.dart';
 
 class HomePageController extends GetxController {
-  HomePageProvider provider = Get.isRegistered<HomePageProvider>()
-      ? Get.find<HomePageProvider>()
-      : Get.put(HomePageProvider());
+  HomePageProvider provider = Get.isRegistered<HomePageProvider>() ? Get.find<HomePageProvider>() : Get.put(HomePageProvider());
 
-  final _value = ''.obs;
-  get value => _value.value;
-  set value(val) => _value.value = val;
-
+  RxBool isLocationLoading = false.obs;
   final _isLoading = false.obs;
   get isLoading => _isLoading.value;
   set isLoading(val) => _isLoading.value = val;
@@ -31,8 +26,7 @@ class HomePageController extends GetxController {
   String get imageFilePath => _imageFilePath.value;
   set imageFilePath(String val) => _imageFilePath.value = val;
 
-  final Rx<LocationData> _locationData =
-      LocationData.fromMap({"latitude": 0.0, "longitude": 0.0}).obs;
+  final Rx<LocationData> _locationData = LocationData.fromMap({"latitude": 0.0, "longitude": 0.0}).obs;
   LocationData get locationData => _locationData.value;
   set locationData(LocationData val) => _locationData.value = val;
 
@@ -53,8 +47,7 @@ class HomePageController extends GetxController {
 
   Future imageSelector() async {
     XFile? file;
-    file = await ImagePicker()
-        .pickImage(source: ImageSource.camera, imageQuality: 60);
+    file = await ImagePicker().pickImage(source: ImageSource.camera, imageQuality: 60);
 
     if (file!.path != null) {
       imageFilePath = file.path;
@@ -66,15 +59,11 @@ class HomePageController extends GetxController {
 
   Future cropImage() async {
     if (imageFilePath != null) {
-      CroppedFile? cropped = await ImageCropper()
-          .cropImage(sourcePath: imageFilePath, aspectRatioPresets: [
+      CroppedFile? cropped = await ImageCropper().cropImage(sourcePath: imageFilePath, aspectRatioPresets: [
         CropAspectRatioPreset.square,
       ], uiSettings: [
         AndroidUiSettings(
-            toolbarTitle: 'Crop',
-            cropGridColor: Colors.black,
-            initAspectRatio: CropAspectRatioPreset.original,
-            lockAspectRatio: false),
+            toolbarTitle: 'Crop', cropGridColor: Colors.black, initAspectRatio: CropAspectRatioPreset.original, lockAspectRatio: false),
         IOSUiSettings(title: 'Crop')
       ]);
 

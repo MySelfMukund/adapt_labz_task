@@ -5,8 +5,7 @@ import 'package:get/get.dart';
 import 'package:problem_statement/app/modules/home_navigation/controllers/home_navigation_controller.dart';
 
 class CustomBottomBar extends StatefulWidget {
-  CustomBottomBar(
-      {required this.navigationController, required this.selectedIndex});
+  CustomBottomBar({super.key, required this.navigationController, required this.selectedIndex});
 
   // Function(BottomBarEnum)? onChanged;
   int? selectedIndex;
@@ -57,110 +56,37 @@ class CustomBottomBarState extends State<CustomBottomBar> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  IconButton(
-                    icon: bottomMenuList[index].icon,
-                    height: bottomMenuList[index].title == 'Follow Up' ||
-                            bottomMenuList[index].title == 'Case'
-                        ? 50.adaptSize
-                        : 24.adaptSize,
-                    width: bottomMenuList[index].title == 'Follow Up' ||
-                            bottomMenuList[index].title == 'Case'
-                        ? 60.adaptSize
-                        : 24.adaptSize,
-                    // color: appTheme.gray400,
+                  Icon(bottomMenuList[index].icon),
+                  Padding(
+                    padding: EdgeInsets.only(top: 1.h),
+                    child: Text(
+                      bottomMenuList[index].title!,
+                    ),
                   ),
-                  bottomMenuList[index].title == 'Follow Up' ||
-                          bottomMenuList[index].title == 'Case'
-                      ? SizedBox()
-                      : Padding(
-                          padding: EdgeInsets.only(top: 1.h),
-                          child: Text(
-                            bottomMenuList[index].title ?? "",
-                            style: theme.textTheme.bodySmall!.copyWith(
-                              color: appTheme.gray400,
-                            ),
-                          ),
-                        ),
                 ],
               ),
               activeIcon: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    // height: 26.h,
-                    width: bottomMenuList[index].title == 'Follow Up' ||
-                            bottomMenuList[index].title == 'Case'
-                        ? 50.w
-                        : 25.w,
-                    child:
-                        // Stack(
-                        //   alignment: Alignment.topRight,
-                        //   children: [
-                        //   InkWell(
-                        // child:
-                        CustomImageView(
-                      imagePath: bottomMenuList[index].activeIcon,
-                      height: bottomMenuList[index].title == 'Follow Up' ||
-                              bottomMenuList[index].title == 'Case'
-                          ? 50.adaptSize
-                          : 24.adaptSize,
-                      width: bottomMenuList[index].title == 'Follow Up' ||
-                              bottomMenuList[index].title == 'Case'
-                          ? 60.adaptSize
-                          : 24.adaptSize,
-                      color: appTheme.blueA20001,
-                      alignment: Alignment.bottomLeft,
-                      margin: EdgeInsets.only(
-                        top: 2.h,
-                        right: 1.w,
-                      ),
-                    ),
-                    //   onTap: () {},
-                    //   splashColor: Colors.black,
-                    // ),
-                    // bottomMenuList[index].title == 'Follow Up' ||
-                    //         bottomMenuList[index].title == 'Case'
-                    //     ? SizedBox()
-                    //     : Align(
-                    //         alignment: Alignment.topRight,
-                    //         child: Container(
-                    //           width: 12.adaptSize,
-                    //           margin: EdgeInsets.only(
-                    //             left: 13.w,
-                    //             bottom: 14.h,
-                    //           ),
-                    //           decoration: AppDecoration.fillOrange.copyWith(
-                    //             borderRadius:
-                    //                 BorderRadiusStyle.circleBorder6,
-                    //           ),
-                    //           child: Text(
-                    //             "1".toUpperCase(),
-                    //             style: theme.textTheme.labelSmall,
-                    //           ),
-                    //         ),
-                    //       ),
-                    //   ],
-                    // ),
+                  Icon(
+                    bottomMenuList[index].icon,
+                    color: Colors.red,
                   ),
-                  bottomMenuList[index].title == 'Follow Up' ||
-                          bottomMenuList[index].title == 'Case'
-                      ? SizedBox()
-                      : Text(
-                          bottomMenuList[index].title ?? "",
-                          style:
-                              CustomTextStyles.labelMediumBlueA20001.copyWith(
-                            color: appTheme.blueA20001,
-                          ),
-                        ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 1.h),
+                    child: Text(
+                      bottomMenuList[index].title!,
+                    ),
+                  ),
                 ],
               ),
               label: '',
             );
           }),
           onTap: (index) {
-            widget.navigationController.changeTabIndex(index);
-            // widget.selectedIndex = index;
+            widget.navigationController.onTabChange(index);
+            widget.selectedIndex = index;
             // widget.onChanged?.call(bottomMenuList[index].type);
             // setState(() {});
           },

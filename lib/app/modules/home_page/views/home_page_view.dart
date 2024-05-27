@@ -5,26 +5,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:problem_statement/app/modules/home_page/controllers/home_page_controller.dart';
+import 'package:problem_statement/app/widgets/custom_app_bar.dart';
 
 import '../../../data/constants/image_constants.dart';
 
 class HomePageView extends StatelessWidget {
   //GetView<HomePageController> {
-  final controller = Get.isRegistered<HomePageController>()
-      ? Get.find<HomePageController>()
-      : Get.put(HomePageController());
+  final controller = Get.isRegistered<HomePageController>() ? Get.find<HomePageController>() : Get.put(HomePageController());
   HomePageView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        title: const Text(
-          'Home Page',
-          style: TextStyle(color: Colors.white),
-        ),
-        centerTitle: true,
+      appBar: const CustomAppBar(
+        title: 'Home Page',
       ),
       body: Container(
         width: double.maxFinite,
@@ -37,20 +31,15 @@ class HomePageView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     _buildProfileImageWidget(),
-                    _buildUserTileWidget(
-                        title: 'Name', text: controller.profileData.name!),
-                    _buildUserTileWidget(
-                        title: 'Email Id', text: controller.profileData.email!),
+                    _buildUserTileWidget(title: 'Name', text: controller.profileData.name!),
+                    _buildUserTileWidget(title: 'Email Id', text: controller.profileData.email!),
                     _buildUserTileWidget(
                         title: 'Address',
-                        text:
-                            "${controller.profileData.address!.suite!}, ${controller.profileData.address!.street!}"
+                        text: "${controller.profileData.address!.suite!}, ${controller.profileData.address!.street!}"
                             "\n${controller.profileData.address!.city}-${controller.profileData.address!.zipcode!}"
                             "\nLat: ${controller.profileData.address!.geo!.lat!},Long: ${controller.profileData.address!.geo!.lng}"),
-                    _buildUserTileWidget(
-                        title: 'Phone Number', text: '+91 123456789'),
-                    _buildUserTileWidget(
-                        title: 'Company', text: 'Company , company, company'),
+                    _buildUserTileWidget(title: 'Phone Number', text: '+91 123456789'),
+                    _buildUserTileWidget(title: 'Company', text: 'Company , company, company'),
                     Obx(
                       () => _buildUserTileWidget(
                           title: 'Current Location',
